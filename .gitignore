@@ -1,0 +1,11 @@
+# build artifacts
+__pycache__
+.cache
+.idea/
+*.fmu
+*.zip
+*_out.csv
+/venv/
+tests/work/
+.vscode
+build

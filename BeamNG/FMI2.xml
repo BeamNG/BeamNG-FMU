@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fmiModelDescription
+  fmiVersion="2.0"
+  modelName="BeamNG"
+  description="This model communicates with the BeamNG.tech simulator."
+  generationTool="BeamNG-FMU"
+  guid="{1AE5E10D-9521-4DE3-80B9-D0EAAA7D5AF1}"
+  numberOfEventIndicators="0"
+  variableNamingConvention="structured">
+
+  <CoSimulation
+    modelIdentifier="BeamNG"
+    canHandleVariableCommunicationStepSize="false"
+    canNotUseMemoryManagementFunctions="true"
+    canGetAndSetFMUstate="false"
+    canSerializeFMUstate="false">
+    <SourceFiles>
+      <File name="all.c"/>
+    </SourceFiles>
+  </CoSimulation>
+
+  <UnitDefinitions>
+    <Unit name="m">
+      <BaseUnit m="1"/>
+    </Unit>
+    <Unit name="m/s">
+      <BaseUnit m="1" s="-1"/>
+    </Unit>
+    <Unit name="m/s2">
+      <BaseUnit m="1" s="-2"/>
+    </Unit>
+    <Unit name="rad">
+      <BaseUnit rad="1"/>
+    </Unit>
+    <Unit name="rad/s">
+      <BaseUnit rad="1" s="-1"/>
+    </Unit>
+    <Unit name="min">
+      <BaseUnit s="60"/>
+    </Unit>
+    <Unit name="1/min">
+      <BaseUnit s="-60"/>
+    </Unit>
+    <Unit name="Nm">
+      <BaseUnit kg="1" m="2" s="-2"/>
+    </Unit>
+  </UnitDefinitions>
+
+  <TypeDefinitions>
+    <SimpleType name="Position">
+      <Real quantity="Position" unit="m"/>
+    </SimpleType>
+    <SimpleType name="Velocity">
+      <Real quantity="Velocity" unit="m/s"/>
+    </SimpleType>
+    <SimpleType name="Acceleration">
+      <Real quantity="Acceleration" unit="m/s2"/>
+    </SimpleType>
+    <SimpleType name="Angle">
+      <Real quantity="Angle" unit="rad"/>
+    </SimpleType>
+    <SimpleType name="AngularVelocity">
+      <Real quantity="AngularVelocity" unit="rad/s"/>
+    </SimpleType>
+    <SimpleType name="Torque">
+      <Real quantity="Torque" unit="Nm"/>
+    </SimpleType>
+    <SimpleType name="RPM">
+      <Real quantity="RPM" unit="1/min"/>
+    </SimpleType>
+  </TypeDefinitions>
+
+  <LogCategories>
+    <Category name="logEvents" description="Log events"/>
+    <Category name="logStatusError" description="Log error messages"/>
+  </LogCategories>
+
+  <DefaultExperiment startTime="0" stepSize="5e-3"/>
+
+  <ModelVariables>
+    <ScalarVariable name="time" valueReference="0" causality="independent" variability="continuous" description="Simulation time">
+      <Real/>
+    </ScalarVariable>
+    <ScalarVariable name="driver_controls.throttle" valueReference="1" causality="output" variability="continuous" initial="exact" description="Throttle">
+      <Real start="0" min="0" max="1"/>
+    </ScalarVariable>
+    <ScalarVariable name="driver_controls.throttleInput" valueReference="2" causality="output" variability="continuous" initial="exact" description="Throttle input">
+      <Real start="0" min="0" max="1" />
+    </ScalarVariable>
+    <ScalarVariable name="driver_controls.brake" valueReference="3" causality="output" variability="continuous" initial="exact" description="Brake">
+      <Real start="0" min="0" max="1"/>
+    </ScalarVariable>
+    <ScalarVariable name="driver_controls.brakeInput" valueReference="4" causality="output" variability="continuous" initial="exact" description="Brake input">
+      <Real start="0" min="0" max="1"/>
+    </ScalarVariable>
+    <ScalarVariable name="driver_controls.clutch" valueReference="5" causality="output" variability="continuous" initial="exact" description="Clutch">
+      <Real start="0" min="0" max="1"/>
+    </ScalarVariable>
+    <ScalarVariable name="driver_controls.clutchInput" valueReference="6" causality="output" variability="continuous" initial="exact" description="Clutch input">
+      <Real start="0" min="0" max="1"/>
+    </ScalarVariable>
+    <ScalarVariable name="driver_controls.parkingbrake" valueReference="7" causality="output" variability="continuous" initial="exact" description="Parking brake">
+      <Real start="0" min="0" max="1"/>
+    </ScalarVariable>
+    <ScalarVariable name="driver_controls.parkingbrakeInput" valueReference="8" causality="output" variability="continuous" initial="exact" description="Parking brake input">
+      <Real start="0" min="0" max="1"/>
+    </ScalarVariable>
+    <ScalarVariable name="driver_controls.steering" valueReference="9" causality="output" variability="continuous" initial="exact" description="Steering">
+      <Real start="0" min="-1" max="1"/>
+    </ScalarVariable>
+    <ScalarVariable name="driver_controls.steeringInput" valueReference="10" causality="output" variability="continuous" initial="exact" description="Steering input">
+      <Real start="0" min="-1" max="1"/>
+    </ScalarVariable>
+    <ScalarVariable name="body_state.posX" valueReference="11" causality="output" variability="continuous" initial="exact" description="Position X">
+      <Real declaredType="Position" start="0"/>
+    </ScalarVariable>
+    <ScalarVariable name="body_state.posY" valueReference="12" causality="output" variability="continuous" initial="exact" description="Position Y">
+      <Real declaredType="Position" start="0"/>
+    </ScalarVariable>
+    <ScalarVariable name="body_state.posZ" valueReference="13" causality="output" variability="continuous" initial="exact" description="Position Z">
+      <Real declaredType="Position" start="0"/>
+    </ScalarVariable>
+    <ScalarVariable name="body_state.velX" valueReference="14" causality="output" variability="continuous" initial="exact" description="Velocity X">
+      <Real declaredType="Velocity" start="0"/>
+    </ScalarVariable>
+    <ScalarVariable name="body_state.velY" valueReference="15" causality="output" variability="continuous" initial="exact" description="Velocity Y">
+      <Real declaredType="Velocity" start="0"/>
+    </ScalarVariable>
+    <ScalarVariable name="body_state.velZ" valueReference="16" causality="output" variability="continuous" initial="exact" description="Velocity Z">
+      <Real declaredType="Velocity" start="0"/>
+    </ScalarVariable>
+    <ScalarVariable name="body_state.groundspeed" valueReference="17" causality="output" variability="continuous" initial="exact" description="Velocity">
+      <Real declaredType="Velocity" start="0"/>
+    </ScalarVariable>
+    <ScalarVariable name="body_state.accX" valueReference="18" causality="output" variability="continuous" initial="exact" description="Acceleration X">
+      <Real declaredType="Acceleration" start="0"/>
+    </ScalarVariable>
+    <ScalarVariable name="body_state.accY" valueReference="19" causality="output" variability="continuous" initial="exact" description="Acceleration Y">
+      <Real declaredType="Acceleration" start="0"/>
+    </ScalarVariable>
+    <ScalarVariable name="body_state.accZ" valueReference="20" causality="output" variability="continuous" initial="exact" description="Acceleration Z">
+      <Real declaredType="Acceleration" start="0"/>
+    </ScalarVariable>
+    <ScalarVariable name="body_state.roll" valueReference="21" causality="output" variability="continuous" initial="exact" description="Roll">
+      <Real declaredType="Angle" start="0"/>
+    </ScalarVariable>
+    <ScalarVariable name="body_state.pitch" valueReference="22" causality="output" variability="continuous" initial="exact" description="Pitch">
+      <Real declaredType="Angle" start="0"/>
+    </ScalarVariable>
+    <ScalarVariable name="body_state.yaw" valueReference="23" causality="output" variability="continuous" initial="exact" description="Yaw">
+      <Real declaredType="Angle" start="0"/>
+    </ScalarVariable>
+    <ScalarVariable name="body_state.altitude" valueReference="24" causality="output" variability="continuous" initial="exact" description="Altitude">
+      <Real declaredType="Position" start="0"/>
+    </ScalarVariable>
+    <ScalarVariable name="vehicle_status.ignitionLevel" valueReference="25" causality="output" variability="discrete" initial="exact" description="Ignition level">
+      <Integer start="0" min="0" max="3"/>
+    </ScalarVariable>
+    <ScalarVariable name="vehicle_status.gear" valueReference="26" causality="output" variability="discrete" initial="exact" description="Gear">
+      <Integer start="0"/>
+    </ScalarVariable>
+    <ScalarVariable name="vehicle_status.fuel" valueReference="27" causality="output" variability="continuous" initial="exact" description="Fuel">
+      <Real start="0" min="0" max="1"/>
+    </ScalarVariable>
+    <ScalarVariable name="vehicle_status.engineLoad" valueReference="28" causality="output" variability="continuous" initial="exact" description="Engine load">
+      <Real start="0" min="0" max="1"/>
+    </ScalarVariable>
+    <ScalarVariable name="vehicle_status.highbeam" valueReference="29" causality="output" variability="discrete" initial="exact" description="High beam">
+      <Boolean start="0"/>
+    </ScalarVariable>
+    <ScalarVariable name="vehicle_status.lowbeam" valueReference="30" causality="output" variability="discrete" initial="exact" description="Low beam">
+      <Boolean start="0"/>
+    </ScalarVariable>
+    <ScalarVariable name="vehicle_status.maxrpm" valueReference="31" causality="output" variability="continuous" initial="exact" description="Maximum RPM">
+      <Real declaredType="RPM" start="0"/>
+    </ScalarVariable>
+    <ScalarVariable name="vehicle_status.reverse" valueReference="32" causality="output" variability="discrete" initial="exact" description="Reverse">
+      <Boolean start="0"/>
+    </ScalarVariable>
+    <ScalarVariable name="vehicle_status.rpm" valueReference="33" causality="output" variability="continuous" initial="exact" description="Engine revolutions per minute">
+      <Real declaredType="RPM" start="0"/>
+    </ScalarVariable>
+    <ScalarVariable name="vehicle_status.signalL" valueReference="34" causality="output" variability="discrete" initial="exact" description="Signal L">
+      <Boolean start="0"/>
+    </ScalarVariable>
+    <ScalarVariable name="vehicle_status.signalR" valueReference="35" causality="output" variability="discrete" initial="exact" description="Signal R">
+      <Boolean start="0"/>
+    </ScalarVariable>
+    <ScalarVariable name="vehicle_status.wheelspeed" valueReference="36" causality="output" variability="continuous" initial="exact" description="Wheel speed">
+      <Real start="0" declaredType="Velocity"/>
+    </ScalarVariable>
+    <ScalarVariable name="wheelFL.angularVelocity" valueReference="37" causality="output" variability="continuous" initial="exact" description="Wheel FL angular velocity">
+      <Real start="0" declaredType="AngularVelocity"/>
+    </ScalarVariable>
+    <ScalarVariable name="wheelFL.wheelSpeed" valueReference="38" causality="output" variability="continuous" initial="exact" description="Wheel FL wheel speed">
+      <Real start="0" declaredType="Velocity"/>
+    </ScalarVariable>
+    <ScalarVariable name="wheelFL.brakingTorque" valueReference="39" causality="output" variability="continuous" initial="exact" description="Wheel FL braking torque">
+      <Real start="0" declaredType="Torque"/>
+    </ScalarVariable>
+    <ScalarVariable name="wheelFL.propulsionTorque" valueReference="40" causality="output" variability="continuous" initial="exact" description="Wheel FL propulsion torque">
+      <Real start="0" declaredType="Torque"/>
+    </ScalarVariable>
+    <ScalarVariable name="wheelFL.frictionTorque" valueReference="41" causality="output" variability="continuous" initial="exact" description="Wheel FL friction torque">
+      <Real start="0" declaredType="Torque"/>
+    </ScalarVariable>
+    <ScalarVariable name="wheelFL.downForce" valueReference="42" causality="output" variability="continuous" initial="exact" description="Wheel FL downforce">
+      <Real start="0" declaredType="Torque"/>
+    </ScalarVariable>
+    <ScalarVariable name="wheelFR.angularVelocity" valueReference="43" causality="output" variability="continuous" initial="exact" description="Wheel FR angular velocity">
+      <Real start="0" declaredType="AngularVelocity"/>
+    </ScalarVariable>
+    <ScalarVariable name="wheelFR.wheelSpeed" valueReference="44" causality="output" variability="continuous" initial="exact" description="Wheel FR wheel speed">
+      <Real start="0" declaredType="Velocity"/>
+    </ScalarVariable>
+    <ScalarVariable name="wheelFR.brakingTorque" valueReference="45" causality="output" variability="continuous" initial="exact" description="Wheel FR braking torque">
+      <Real start="0" declaredType="Torque"/>
+    </ScalarVariable>
+    <ScalarVariable name="wheelFR.propulsionTorque" valueReference="46" causality="output" variability="continuous" initial="exact" description="Wheel FR propulsion torque">
+      <Real start="0" declaredType="Torque"/>
+    </ScalarVariable>
+    <ScalarVariable name="wheelFR.frictionTorque" valueReference="47" causality="output" variability="continuous" initial="exact" description="Wheel FR friction torque">
+      <Real start="0" declaredType="Torque"/>
+    </ScalarVariable>
+    <ScalarVariable name="wheelFR.downForce" valueReference="48" causality="output" variability="continuous" initial="exact" description="Wheel FR downforce">
+      <Real start="0" declaredType="Torque"/>
+    </ScalarVariable>
+    <ScalarVariable name="wheelRL.angularVelocity" valueReference="49" causality="output" variability="continuous" initial="exact" description="Wheel RL angular velocity">
+      <Real start="0" declaredType="AngularVelocity"/>
+    </ScalarVariable>
+    <ScalarVariable name="wheelRL.wheelSpeed" valueReference="50" causality="output" variability="continuous" initial="exact" description="Wheel RL wheel speed">
+      <Real start="0" declaredType="Velocity"/>
+    </ScalarVariable>
+    <ScalarVariable name="wheelRL.brakingTorque" valueReference="51" causality="output" variability="continuous" initial="exact" description="Wheel RL braking torque">
+      <Real start="0" declaredType="Torque"/>
+    </ScalarVariable>
+    <ScalarVariable name="wheelRL.propulsionTorque" valueReference="52" causality="output" variability="continuous" initial="exact" description="Wheel RL propulsion torque">
+      <Real start="0" declaredType="Torque"/>
+    </ScalarVariable>
+    <ScalarVariable name="wheelRL.frictionTorque" valueReference="53" causality="output" variability="continuous" initial="exact" description="Wheel RL friction torque">
+      <Real start="0" declaredType="Torque"/>
+    </ScalarVariable>
+    <ScalarVariable name="wheelRL.downForce" valueReference="54" causality="output" variability="continuous" initial="exact" description="Wheel RL downforce">
+      <Real start="0" declaredType="Torque"/>
+    </ScalarVariable>
+    <ScalarVariable name="wheelRR.angularVelocity" valueReference="55" causality="output" variability="continuous" initial="exact" description="Wheel RR angular velocity">
+      <Real start="0" declaredType="AngularVelocity"/>
+    </ScalarVariable>
+    <ScalarVariable name="wheelRR.wheelSpeed" valueReference="56" causality="output" variability="continuous" initial="exact" description="Wheel RR wheel speed">
+      <Real start="0" declaredType="Velocity"/>
+    </ScalarVariable>
+    <ScalarVariable name="wheelRR.brakingTorque" valueReference="57" causality="output" variability="continuous" initial="exact" description="Wheel RR braking torque">
+      <Real start="0" declaredType="Torque"/>
+    </ScalarVariable>
+    <ScalarVariable name="wheelRR.propulsionTorque" valueReference="58" causality="output" variability="continuous" initial="exact" description="Wheel RR propulsion torque">
+      <Real start="0" declaredType="Torque"/>
+    </ScalarVariable>
+    <ScalarVariable name="wheelRR.frictionTorque" valueReference="59" causality="output" variability="continuous" initial="exact" description="Wheel RR friction torque">
+      <Real start="0" declaredType="Torque"/>
+    </ScalarVariable>
+    <ScalarVariable name="wheelRR.downForce" valueReference="60" causality="output" variability="continuous" initial="exact" description="Wheel RR downforce">
+      <Real start="0" declaredType="Torque"/>
+    </ScalarVariable>
+
+    <ScalarVariable name="input.throttleInput" valueReference="61" causality="input" variability="continuous" initial="exact" description="Throttle input">
+      <Real start="0" min="0" max="1"/>
+    </ScalarVariable>
+    <ScalarVariable name="input.brakeInput" valueReference="62" causality="input" variability="continuous" initial="exact" description="Brake input">
+      <Real start="0" min="0" max="1"/>
+    </ScalarVariable>
+    <ScalarVariable name="input.steeringInput" valueReference="63" causality="input" variability="continuous" initial="exact" description="Steering input">
+      <Real start="0" min="-1" max="1"/>
+    </ScalarVariable>
+    <ScalarVariable name="input.gear" valueReference="64" causality="input" variability="discrete" initial="exact" description="Gear">
+      <Integer start="0"/>
+    </ScalarVariable>
+    <ScalarVariable name="input.wheelFL_brakingTorque" valueReference="65" causality="input" variability="continuous" initial="exact" description="Wheel FL braking torque">
+      <Real declaredType="Torque" start="0"/>
+    </ScalarVariable>
+    <ScalarVariable name="input.wheelFL_propulsionTorque" valueReference="66" causality="input" variability="continuous" initial="exact" description="Wheel FL propulsion torque">
+      <Real declaredType="Torque" start="0"/>
+    </ScalarVariable>
+    <ScalarVariable name="input.wheelFR_brakingTorque" valueReference="67" causality="input" variability="continuous" initial="exact" description="Wheel FR braking torque">
+      <Real declaredType="Torque" start="0"/>
+    </ScalarVariable>
+    <ScalarVariable name="input.wheelFR_propulsionTorque" valueReference="68" causality="input" variability="continuous" initial="exact" description="Wheel FR propulsion torque">
+      <Real declaredType="Torque" start="0"/>
+    </ScalarVariable>
+    <ScalarVariable name="input.wheelRL_brakingTorque" valueReference="69" causality="input" variability="continuous" initial="exact" description="Wheel RL braking torque">
+      <Real declaredType="Torque" start="0"/>
+    </ScalarVariable>
+    <ScalarVariable name="input.wheelRL_propulsionTorque" valueReference="70" causality="input" variability="continuous" initial="exact" description="Wheel RL propulsion torque">
+      <Real declaredType="Torque" start="0"/>
+    </ScalarVariable>
+    <ScalarVariable name="input.wheelRR_brakingTorque" valueReference="71" causality="input" variability="continuous" initial="exact" description="Wheel RR braking torque">
+      <Real declaredType="Torque" start="0"/>
+    </ScalarVariable>
+    <ScalarVariable name="input.wheelRR_propulsionTorque" valueReference="72" causality="input" variability="continuous" initial="exact" description="Wheel RR propulsion torque">
+      <Real declaredType="Torque" start="0"/>
+    </ScalarVariable>
+    <ScalarVariable name="input.driveMode" valueReference="73" causality="input" variability="discrete" initial="exact" description="Drive mode [0 = pedals, 1 = torques].">
+      <Boolean start="0"/>
+    </ScalarVariable>
+
+    <ScalarVariable name="socket.inPort" valueReference="74" causality="parameter" variability="fixed" initial="exact" description="FMU UDP port to listen on.">
+      <Integer start="64890" min="1001" max="65535"/>
+    </ScalarVariable>
+    <ScalarVariable name="socket.inAddress" valueReference="75" causality="parameter" variability="fixed" initial="exact" description="FMU UDP IP address to listen on.">
+      <String start="127.0.0.1"/>
+    </ScalarVariable>
+    <ScalarVariable name="socket.outPort" valueReference="76" causality="parameter" variability="fixed" initial="exact" description="BeamNG UDP port used for the coupling.">
+      <Integer start="64891" min="1001" max="65535"/>
+    </ScalarVariable>
+    <ScalarVariable name="socket.outAddress" valueReference="77" causality="parameter" variability="fixed" initial="exact" description="BeamNG UDP IP address.">
+      <String start="127.0.0.1"/>
+    </ScalarVariable>
+  </ModelVariables>
+
+  <ModelStructure>
+    <Outputs>
+      <Unknown index="2"/>
+      <Unknown index="3"/>
+      <Unknown index="4"/>
+      <Unknown index="5"/>
+      <Unknown index="6"/>
+      <Unknown index="7"/>
+      <Unknown index="8"/>
+      <Unknown index="9"/>
+      <Unknown index="10"/>
+      <Unknown index="11"/>
+      <Unknown index="12"/>
+      <Unknown index="13"/>
+      <Unknown index="14"/>
+      <Unknown index="15"/>
+      <Unknown index="16"/>
+      <Unknown index="17"/>
+      <Unknown index="18"/>
+      <Unknown index="19"/>
+      <Unknown index="20"/>
+      <Unknown index="21"/>
+      <Unknown index="22"/>
+      <Unknown index="23"/>
+      <Unknown index="24"/>
+      <Unknown index="25"/>
+      <Unknown index="26"/>
+      <Unknown index="27"/>
+      <Unknown index="28"/>
+      <Unknown index="29"/>
+      <Unknown index="30"/>
+      <Unknown index="31"/>
+      <Unknown index="32"/>
+      <Unknown index="33"/>
+      <Unknown index="34"/>
+      <Unknown index="35"/>
+      <Unknown index="36"/>
+      <Unknown index="37"/>
+      <Unknown index="38"/>
+      <Unknown index="39"/>
+      <Unknown index="40"/>
+      <Unknown index="41"/>
+      <Unknown index="42"/>
+      <Unknown index="43"/>
+      <Unknown index="44"/>
+      <Unknown index="45"/>
+      <Unknown index="46"/>
+      <Unknown index="47"/>
+      <Unknown index="48"/>
+      <Unknown index="49"/>
+      <Unknown index="50"/>
+      <Unknown index="51"/>
+      <Unknown index="52"/>
+      <Unknown index="53"/>
+      <Unknown index="54"/>
+      <Unknown index="55"/>
+      <Unknown index="56"/>
+      <Unknown index="57"/>
+      <Unknown index="58"/>
+      <Unknown index="59"/>
+      <Unknown index="60"/>
+      <Unknown index="61"/>
+    </Outputs>
+  </ModelStructure>
+
+</fmiModelDescription>

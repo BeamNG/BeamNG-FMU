@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fmiModelDescription
+  fmiVersion="3.0"
+  modelName="BeamNG"
+  description="This model communicates with the BeamNG.tech simulator."
+  generationTool="BeamNG-FMU"
+  instantiationToken="{1AE5E10D-9521-4DE3-80B9-D0EAAA7D5AF1}"
+  variableNamingConvention="structured"
+  >
+
+  <CoSimulation
+    modelIdentifier="BeamNG"
+    canGetAndSetFMUState="false"
+    canSerializeFMUState="false"
+    canHandleVariableCommunicationStepSize="false"
+    providesIntermediateUpdate="false"
+    mightReturnEarlyFromDoStep="true"
+    canReturnEarlyAfterIntermediateUpdate="false"
+    fixedInternalStepSize="5e-4"
+    hasEventMode="false"/>
+
+  <UnitDefinitions>
+    <Unit name="m">
+      <BaseUnit m="1"/>
+    </Unit>
+    <Unit name="m/s">
+      <BaseUnit m="1" s="-1"/>
+    </Unit>
+    <Unit name="m/s2">
+      <BaseUnit m="1" s="-2"/>
+    </Unit>
+    <Unit name="rad">
+      <BaseUnit rad="1"/>
+    </Unit>
+    <Unit name="rad/s">
+      <BaseUnit rad="1" s="-1"/>
+    </Unit>
+    <Unit name="min">
+      <BaseUnit s="60"/>
+    </Unit>
+    <Unit name="1/min">
+      <BaseUnit s="-60"/>
+    </Unit>
+    <Unit name="Nm">
+      <BaseUnit kg="1" m="2" s="-2"/>
+    </Unit>
+  </UnitDefinitions>
+
+  <TypeDefinitions>
+    <Float64Type name="Position" quantity="Position" unit="m"/>
+    <Float64Type name="Velocity" quantity="Velocity" unit="m/s"/>
+    <Float64Type name="Acceleration" quantity="Acceleration" unit="m/s2"/>
+    <Float64Type name="Angle" quantity="Angle" unit="rad"/>
+    <Float64Type name="AngularVelocity" quantity="AngularVelocity" unit="rad/s"/>
+    <Float64Type name="Torque" quantity="Torque" unit="Nm"/>
+    <Float64Type name="RPM" quantity="RPM" unit="1/min"/>
+  </TypeDefinitions>
+
+  <LogCategories>
+    <Category name="logEvents" description="Log events"/>
+    <Category name="logStatusError" description="Log error messages"/>
+  </LogCategories>
+
+  <DefaultExperiment startTime="0" stepSize="5e-3"/>
+
+  <ModelVariables>
+    <Float64 name="time" valueReference="0" causality="independent" variability="continuous" description="Simulation time"/>
+
+    <Float64 name="driver_controls.throttle" valueReference="1" causality="output" variability="continuous" initial="exact" start="0" min="0" max="1" description="Throttle"/>
+    <Float64 name="driver_controls.throttleInput" valueReference="2" causality="output" variability="continuous" initial="exact" start="0" min="0" max="1" description="Throttle input"/>
+    <Float64 name="driver_controls.brake" valueReference="3" causality="output" variability="continuous" initial="exact" start="0" min="0" max="1" description="Brake"/>
+    <Float64 name="driver_controls.brakeInput" valueReference="4" causality="output" variability="continuous" initial="exact" start="0" min="0" max="1" description="Brake input"/>
+    <Float64 name="driver_controls.clutch" valueReference="5" causality="output" variability="continuous" initial="exact" start="0" min="0" max="1" description="Clutch"/>
+    <Float64 name="driver_controls.clutchInput" valueReference="6" causality="output" variability="continuous" initial="exact" start="0" min="0" max="1" description="Clutch input"/>
+    <Float64 name="driver_controls.parkingbrake" valueReference="7" causality="output" variability="continuous" initial="exact" start="0" min="0" max="1" description="Parking brake"/>
+    <Float64 name="driver_controls.parkingbrakeInput" valueReference="8" causality="output" variability="continuous" initial="exact" start="0" min="0" max="1" description="Parking brake input"/>
+    <Float64 name="driver_controls.steering" valueReference="9" causality="output" variability="continuous" initial="exact" start="0" min="-1" max="1" description="Steering"/>
+    <Float64 name="driver_controls.steeringInput" valueReference="10" causality="output" variability="continuous" initial="exact" start="0" min="-1" max="1" description="Steering input"/>
+    <Float64 name="body_state.posX" valueReference="11" causality="output" variability="continuous" initial="exact" start="0" declaredType="Position" description="Position X"/>
+    <Float64 name="body_state.posY" valueReference="12" causality="output" variability="continuous" initial="exact" start="0" declaredType="Position" description="Position Y"/>
+    <Float64 name="body_state.posZ" valueReference="13" causality="output" variability="continuous" initial="exact" start="0" declaredType="Position" description="Position Z"/>
+    <Float64 name="body_state.velX" valueReference="14" causality="output" variability="continuous" initial="exact" declaredType="Velocity" start="0" description="Velocity X"/>
+    <Float64 name="body_state.velY" valueReference="15" causality="output" variability="continuous" initial="exact" declaredType="Velocity" start="0" description="Velocity Y"/>
+    <Float64 name="body_state.velZ" valueReference="16" causality="output" variability="continuous" initial="exact" declaredType="Velocity" start="0" description="Velocity Z"/>
+    <Float64 name="body_state.groundspeed" valueReference="17" causality="output" variability="continuous" initial="exact" declaredType="Velocity" start="0" description="Velocity"/>
+    <Float64 name="body_state.accX" valueReference="18" causality="output" variability="continuous" initial="exact" declaredType="Acceleration" start="0" description="Acceleration X"/>
+    <Float64 name="body_state.accY" valueReference="19" causality="output" variability="continuous" initial="exact" declaredType="Acceleration" start="0" description="Acceleration Y"/>
+    <Float64 name="body_state.accZ" valueReference="20" causality="output" variability="continuous" initial="exact" declaredType="Acceleration" start="0" description="Acceleration Z"/>
+    <Float64 name="body_state.roll" valueReference="21" causality="output" variability="continuous" initial="exact" declaredType="Angle" start="0" description="Roll"/>
+    <Float64 name="body_state.pitch" valueReference="22" causality="output" variability="continuous" initial="exact" declaredType="Angle" start="0" description="Pitch"/>
+    <Float64 name="body_state.yaw" valueReference="23" causality="output" variability="continuous" initial="exact" declaredType="Angle" start="0" description="Yaw"/>
+    <Float64 name="body_state.altitude" valueReference="24" causality="output" variability="continuous" initial="exact" start="0" declaredType="Position" description="Altitude"/>
+    <Int32 name="vehicle_status.ignitionLevel" valueReference="25" causality="output" variability="discrete" initial="exact" start="0" min="0" max="3" description="Ignition level"/>
+    <Int32 name="vehicle_status.gear" valueReference="26" causality="output" variability="discrete" initial="exact" start="0" description="Gear"/>
+    <Float64 name="vehicle_status.fuel" valueReference="27" causality="output" variability="continuous" initial="exact" start="0" min="0" max="1" description="Fuel"/>
+    <Float64 name="vehicle_status.engineLoad" valueReference="28" causality="output" variability="continuous" initial="exact" start="0" min="0" max="1" description="Engine load"/>
+    <Boolean name="vehicle_status.highbeam" valueReference="29" causality="output" variability="discrete" initial="exact" start="0" description="High beam"/>
+    <Boolean name="vehicle_status.lowbeam" valueReference="30" causality="output" variability="discrete" initial="exact" start="0" description="Low beam"/>
+    <Float64 name="vehicle_status.maxrpm" valueReference="31" causality="output" variability="continuous" initial="exact" declaredType="RPM" start="0" description="Maximum RPM"/>
+    <Boolean name="vehicle_status.reverse" valueReference="32" causality="output" variability="discrete" initial="exact" start="0" description="Reverse"/>
+    <Float64 name="vehicle_status.rpm" valueReference="33" causality="output" variability="continuous" initial="exact" declaredType="RPM" start="0" description="Engine revolutions per minute"/>
+    <Boolean name="vehicle_status.signalL" valueReference="34" causality="output" variability="discrete" initial="exact" start="0" description="Signal L"/>
+    <Boolean name="vehicle_status.signalR" valueReference="35" causality="output" variability="discrete" initial="exact" start="0" description="Signal R"/>
+    <Float64 name="vehicle_status.wheelspeed" valueReference="36" causality="output" variability="continuous" initial="exact" start="0" declaredType="Velocity" description="Wheel speed"/>
+    <Float64 name="wheelFL.angularVelocity" valueReference="37" causality="output" variability="continuous" initial="exact" start="0" declaredType="AngularVelocity" description="Wheel FL angular velocity"/>
+    <Float64 name="wheelFL.wheelSpeed" valueReference="38" causality="output" variability="continuous" initial="exact" start="0" declaredType="Velocity" description="Wheel FL wheel speed"/>
+    <Float64 name="wheelFL.brakingTorque" valueReference="39" causality="output" variability="continuous" initial="exact" start="0" declaredType="Torque" description="Wheel FL braking torque"/>
+    <Float64 name="wheelFL.propulsionTorque" valueReference="40" causality="output" variability="continuous" initial="exact" start="0" declaredType="Torque" description="Wheel FL propulsion torque"/>
+    <Float64 name="wheelFL.frictionTorque" valueReference="41" causality="output" variability="continuous" initial="exact" start="0" declaredType="Torque" description="Wheel FL friction torque"/>
+    <Float64 name="wheelFL.downForce" valueReference="42" causality="output" variability="continuous" initial="exact" start="0" declaredType="Torque" description="Wheel FL downforce"/>
+    <Float64 name="wheelFR.angularVelocity" valueReference="43" causality="output" variability="continuous" initial="exact" start="0" declaredType="AngularVelocity" description="Wheel FR angular velocity"/>
+    <Float64 name="wheelFR.wheelSpeed" valueReference="44" causality="output" variability="continuous" initial="exact" start="0" declaredType="Velocity" description="Wheel FR wheel speed"/>
+    <Float64 name="wheelFR.brakingTorque" valueReference="45" causality="output" variability="continuous" initial="exact" start="0" declaredType="Torque" description="Wheel FR braking torque"/>
+    <Float64 name="wheelFR.propulsionTorque" valueReference="46" causality="output" variability="continuous" initial="exact" start="0" declaredType="Torque" description="Wheel FR propulsion torque"/>
+    <Float64 name="wheelFR.frictionTorque" valueReference="47" causality="output" variability="continuous" initial="exact" start="0" declaredType="Torque" description="Wheel FR friction torque"/>
+    <Float64 name="wheelFR.downForce" valueReference="48" causality="output" variability="continuous" initial="exact" start="0" declaredType="Torque" description="Wheel FR downforce"/>
+    <Float64 name="wheelRL.angularVelocity" valueReference="49" causality="output" variability="continuous" initial="exact" start="0" declaredType="AngularVelocity" description="Wheel RL angular velocity"/>
+    <Float64 name="wheelRL.wheelSpeed" valueReference="50" causality="output" variability="continuous" initial="exact" start="0" declaredType="Velocity" description="Wheel RL wheel speed"/>
+    <Float64 name="wheelRL.brakingTorque" valueReference="51" causality="output" variability="continuous" initial="exact" start="0" declaredType="Torque" description="Wheel RL braking torque"/>
+    <Float64 name="wheelRL.propulsionTorque" valueReference="52" causality="output" variability="continuous" initial="exact" start="0" declaredType="Torque" description="Wheel RL propulsion torque"/>
+    <Float64 name="wheelRL.frictionTorque" valueReference="53" causality="output" variability="continuous" initial="exact" start="0" declaredType="Torque" description="Wheel RL friction torque"/>
+    <Float64 name="wheelRL.downForce" valueReference="54" causality="output" variability="continuous" initial="exact" start="0" declaredType="Torque" description="Wheel RL downforce"/>
+    <Float64 name="wheelRR.angularVelocity" valueReference="55" causality="output" variability="continuous" initial="exact" start="0" declaredType="AngularVelocity" description="Wheel RR angular velocity"/>
+    <Float64 name="wheelRR.wheelSpeed" valueReference="56" causality="output" variability="continuous" initial="exact" start="0" declaredType="Velocity" description="Wheel RR wheel speed"/>
+    <Float64 name="wheelRR.brakingTorque" valueReference="57" causality="output" variability="continuous" initial="exact" start="0" declaredType="Torque" description="Wheel RR braking torque"/>
+    <Float64 name="wheelRR.propulsionTorque" valueReference="58" causality="output" variability="continuous" initial="exact" start="0" declaredType="Torque" description="Wheel RR propulsion torque"/>
+    <Float64 name="wheelRR.frictionTorque" valueReference="59" causality="output" variability="continuous" initial="exact" start="0" declaredType="Torque" description="Wheel RR friction torque"/>
+    <Float64 name="wheelRR.downForce" valueReference="60" causality="output" variability="continuous" initial="exact" start="0" declaredType="Torque" description="Wheel RR downforce"/>
+
+    <Float64 name="input.throttleInput" valueReference="61" causality="input" variability="continuous" initial="exact" start="0" min="0" max="1" description="Throttle input"/>
+    <Float64 name="input.brakeInput" valueReference="62" causality="input" variability="continuous" initial="exact" start="0" min="0" max="1" description="Brake input"/>
+    <Float64 name="input.steeringInput" valueReference="63" causality="input" variability="continuous" initial="exact" start="0" min="-1" max="1" description="Steering input"/>
+    <Int32 name="input.gear" valueReference="64" causality="input" variability="discrete" initial="exact" start="0" description="Gear"/>
+    <Float64 name="input.wheelFL_brakingTorque" valueReference="65" causality="input" variability="continuous" initial="exact" declaredType="Torque" start="0" description="Wheel FL braking torque"/>
+    <Float64 name="input.wheelFL_propulsionTorque" valueReference="66" causality="input" variability="continuous" initial="exact" declaredType="Torque" start="0" description="Wheel FL propulsion torque"/>
+    <Float64 name="input.wheelFR_brakingTorque" valueReference="67" causality="input" variability="continuous" initial="exact" declaredType="Torque" start="0" description="Wheel FR braking torque"/>
+    <Float64 name="input.wheelFR_propulsionTorque" valueReference="68" causality="input" variability="continuous" initial="exact" declaredType="Torque" start="0" description="Wheel FR propulsion torque"/>
+    <Float64 name="input.wheelRL_brakingTorque" valueReference="69" causality="input" variability="continuous" initial="exact" declaredType="Torque" start="0" description="Wheel RL braking torque"/>
+    <Float64 name="input.wheelRL_propulsionTorque" valueReference="70" causality="input" variability="continuous" initial="exact" declaredType="Torque" start="0" description="Wheel RL propulsion torque"/>
+    <Float64 name="input.wheelRR_brakingTorque" valueReference="71" causality="input" variability="continuous" initial="exact" declaredType="Torque" start="0" description="Wheel RR braking torque"/>
+    <Float64 name="input.wheelRR_propulsionTorque" valueReference="72" causality="input" variability="continuous" initial="exact" declaredType="Torque" start="0" description="Wheel RR propulsion torque"/>
+    <Boolean name="input.driveMode" valueReference="73" causality="input" variability="discrete" initial="exact" start="0" description="Drive mode [0 = pedals, 1 = torques]."/>
+
+    <Int32 name="socket.inPort" valueReference="74" causality="parameter" variability="fixed" initial="exact" start="64890" min="1001" max="65535" description="FMU UDP port to listen on."/>
+    <String name="socket.inAddress" valueReference="75" causality="parameter" variability="fixed" initial="exact" description="FMU UDP IP address to listen on.">
+      <Start value="127.0.0.1"/>
+    </String>
+    <Int32 name="socket.outPort" valueReference="76" causality="parameter" variability="fixed" initial="exact" start="64891" min="1001" max="65535" description="BeamNG UDP port used for the coupling."/>
+    <String name="socket.outAddress" valueReference="77" causality="parameter" variability="fixed" initial="exact" description="BeamNG UDP IP address.">
+      <Start value="127.0.0.1"/>
+    </String>
+  </ModelVariables>
+
+  <ModelStructure>
+    <Output valueReference="1"/>
+    <Output valueReference="2"/>
+    <Output valueReference="3"/>
+    <Output valueReference="4"/>
+    <Output valueReference="5"/>
+    <Output valueReference="6"/>
+    <Output valueReference="7"/>
+    <Output valueReference="8"/>
+    <Output valueReference="9"/>
+    <Output valueReference="10"/>
+    <Output valueReference="11"/>
+    <Output valueReference="12"/>
+    <Output valueReference="13"/>
+    <Output valueReference="14"/>
+    <Output valueReference="15"/>
+    <Output valueReference="16"/>
+    <Output valueReference="17"/>
+    <Output valueReference="18"/>
+    <Output valueReference="19"/>
+    <Output valueReference="20"/>
+    <Output valueReference="21"/>
+    <Output valueReference="22"/>
+    <Output valueReference="23"/>
+    <Output valueReference="24"/>
+    <Output valueReference="25"/>
+    <Output valueReference="26"/>
+    <Output valueReference="27"/>
+    <Output valueReference="28"/>
+    <Output valueReference="29"/>
+    <Output valueReference="30"/>
+    <Output valueReference="31"/>
+    <Output valueReference="32"/>
+    <Output valueReference="33"/>
+    <Output valueReference="34"/>
+    <Output valueReference="35"/>
+    <Output valueReference="36"/>
+    <Output valueReference="37"/>
+    <Output valueReference="38"/>
+    <Output valueReference="39"/>
+    <Output valueReference="40"/>
+    <Output valueReference="41"/>
+    <Output valueReference="42"/>
+    <Output valueReference="43"/>
+    <Output valueReference="44"/>
+    <Output valueReference="45"/>
+    <Output valueReference="46"/>
+    <Output valueReference="47"/>
+    <Output valueReference="48"/>
+    <Output valueReference="49"/>
+    <Output valueReference="50"/>
+    <Output valueReference="51"/>
+    <Output valueReference="52"/>
+    <Output valueReference="53"/>
+    <Output valueReference="54"/>
+    <Output valueReference="55"/>
+    <Output valueReference="56"/>
+    <Output valueReference="57"/>
+    <Output valueReference="58"/>
+    <Output valueReference="59"/>
+    <Output valueReference="60"/>
+  </ModelStructure>
+
+</fmiModelDescription>
