@@ -1,0 +1,88 @@
+name: Build the BeamNG FMU
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  lint-files:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v3
+    - run: python3 build/lint_files.py
+
+  build:
+    strategy:
+      matrix:
+        include:
+          - name: x86_64-windows
+            image: windows-2022
+            arch: x86_64
+          - name: x86_64-linux
+            image: ubuntu-20.04
+            arch: x86_64
+    runs-on: ${{ matrix.image }}
+    needs: lint-files
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    - uses: s-weigand/setup-conda@v1.1.1
+      with:
+        conda-channels: conda-forge
+    - run: conda --version
+    - run: which python
+    - run: python -m pip install fmpy==0.3.18 pytest scipy
+    - if: matrix.name == 'aarch64-linux'
+      run: |
+        sudo apt-get update
+        sudo apt-get install gcc-aarch64-linux-gnu qemu-user
+    - run: python build/build_cvode.py ${{ matrix.name }}
+    - run: python build/build_libxml2.py ${{ matrix.name }}
+    - run: python build/build_zlib.py ${{ matrix.name }}
+    - run: python build/build.py ${{ matrix.name }}
+    - uses: actions/upload-artifact@v3
+      with:
+        name: ${{ matrix.name }}
+        path: build/fmus
+        if-no-files-found: error
+
+  merge-fmus:
+    runs-on: ubuntu-20.04
+    needs: [build]
+    steps:
+    - uses: s-weigand/setup-conda@v1.1.1
+      with:
+        conda-channels: conda-forge
+    - run: python -m pip install fmpy==0.3.18 pytest scipy kaleido markdown2 plotly
+    - uses: actions/checkout@v3
+    - uses: actions/download-artifact@v3
+      with:
+        name: x86_64-windows
+        path: dist-x86_64-windows
+    - uses: actions/download-artifact@v3
+      with:
+        name: x86_64-linux
+        path: dist-x86_64-linux
+    - run: chmod +x dist-x86_64-linux/fmusim-x86_64-linux/fmusim
+
+    - run: git status --porcelain --untracked=no
+    - run: git tag --contains
+    - run: git rev-parse --short HEAD
+
+    - run: python3 build/merge_binaries.py
+
+    - run: git status --porcelain --untracked=no
+    - run: git tag --contains
+    - run: git rev-parse --short HEAD
+
+    - uses: actions/upload-artifact@v3
+      with:
+        name: BeamNG-FMU
+        path: dist-merged
+        if-no-files-found: error
