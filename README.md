@@ -97,3 +97,12 @@ The FMUs will be in the `dist` folder inside the selected build folder.
 ## Building fmusim
 
 To build the `fmusim` executable, run the `build/build_*.py <platform>` Python scripts (where `<platform>` is the platform to build for, e.g., `x86_64-windows`) and enable `WITH_FMUSIM` before generating the CMake project.
+
+
+## License and Attribution
+
+Copyright &copy; 2024, BeamNG GmbH.
+All rights reserved.
+The code is released under the [2-Clause BSD License](LICENSE.txt).
+
+The [BeamNG FMU](https://github.com/beamng/beamng-fmu) is a fork of the [Reference FMUs](https://github.com/modelica/Reference-FMUs) by Modelica Association Project, which are a fork of the [Test FMUs](https://github.com/CATIA-Systems/Test-FMUs) by Dassault Syst&egrave;mes, which are a fork of the [FMU SDK](https://github.com/qtronic/fmusdk) by QTronic, all of which are released under the 2-Clause BSD License.
