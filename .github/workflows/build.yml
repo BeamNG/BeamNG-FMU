@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v3
-    - run: python3 build/lint_files.py
+    - run: python3 dist/lint_files.py
 
   build:
     strategy:
@@ -42,14 +42,14 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install gcc-aarch64-linux-gnu qemu-user
-    - run: python build/build_cvode.py ${{ matrix.name }}
-    - run: python build/build_libxml2.py ${{ matrix.name }}
-    - run: python build/build_zlib.py ${{ matrix.name }}
-    - run: python build/build.py ${{ matrix.name }}
+    - run: python dist/build_cvode.py ${{ matrix.name }}
+    - run: python dist/build_libxml2.py ${{ matrix.name }}
+    - run: python dist/build_zlib.py ${{ matrix.name }}
+    - run: python dist/build.py ${{ matrix.name }}
     - uses: actions/upload-artifact@v3
       with:
         name: ${{ matrix.name }}
-        path: build/fmus
+        path: dist/fmus
         if-no-files-found: error
 
   merge-fmus:
