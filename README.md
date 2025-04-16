@@ -2,6 +2,22 @@
 
 A BeamNG FMU for the [Functional Mock-up Interface](https://fmi-standard.org/).
 
+## Introduction
+
+BeamNG.tech implements the [Functional Mock-up Interface standard](https://fmi-standard.org/) as a co-simulation option for vehicle coupling. Functional Mock-up Unit (FMU) files for FMI 2.0 CS and FMI 3.0 CS are included in the BeamNG.tech installation (since BeamNG.tech 0.32) and in the [BeamNG-MATLAB-Simulink-integration repository](https://github.com/BeamNG/BeamNG-MATLAB-Simulink-integration), compatible with [Simulink](https://www.mathworks.com/products/simulink.html) R2023b onwards.
+
+The FMUs support a static list of vehicle inputs and outputs as of now.
+
+## Compatibility
+
+The available FMUs were tested and successfully imported/simulated in the following tools:
+- MATLAB® Simulink® R2023b, R2024a (Windows)
+- FMPy 0.3.19 (Windows)
+
+The FMUs were also checked using the [FMU Check](https://fmu-check.herokuapp.com/) online tool.
+
+If you use a different importing tool/platform and simulate the BeamNG FMU successfully, let us know at [tech@beamng.gmbh](mailto:tech@beamng.gmbh) and we will add the tool to this list.
+
 ## Run BeamNG FMU in Simulink
 
 1. Obtain any example from [BeamNG-MATLAB-Simulink-integration](https://github.com/BeamNG/BeamNG-MATLAB-Simulink-integration/tree/main/examples/simulink/FMI). It is located in the `examples/simulink/FMI` folder.
@@ -101,7 +117,7 @@ To build the `fmusim` executable, run the `build/build_*.py <platform>` Python s
 
 ## License and Attribution
 
-Copyright &copy; 2024, BeamNG GmbH.
+Copyright &copy; 2024-2025, BeamNG GmbH.
 All rights reserved.
 The code is released under the [2-Clause BSD License](LICENSE.txt).
 
